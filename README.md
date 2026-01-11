@@ -9,6 +9,27 @@
 * **訓練平台：** Google Colab (使用 T4 GPU 加速)。
 * **資料管理：** Roboflow (負責資料預處理與增強)。
 
+## ⚙️ 所需軟體與環境 (Requirements)
+若要在本地端執行此專案，建議安裝以下軟體與工具：
+
+### 1. 系統環境
+* **作業系統：** Windows 10/11, macOS, 或 Linux。
+* **Python 版本：** 建議使用 **Python 3.8** 或更高版本。
+* **硬體建議：** 雖然 CPU 即可執行預測，但若有 NVIDIA GPU (支援 CUDA) 速度會更快。
+
+### 2. 必要開發工具 (Software)
+* **[Python](https://www.python.org/downloads/)**: 程式執行環境。
+* **[Git](https://git-scm.com/downloads)**: 用於下載 (Clone) 此專案代碼。
+* **[Visual Studio Code (VS Code)](https://code.visualstudio.com/)**: 推薦使用的程式碼編輯器。
+* **[Anaconda](https://www.anaconda.com/) (選用)**: 建議使用 Anaconda 或 Miniconda 來管理虛擬環境，避免套件衝突。
+
+### 3. 必要 Python 套件 (Libraries)
+* **ultralytics**: YOLO 核心庫。
+* **opencv-python**: 影像處理 (通常隨 ultralytics 自動安裝)。
+* **torch**: 深度學習框架 (通常隨 ultralytics 自動安裝)。
+
+---
+
 ## 📊 資料集細節 (Dataset Details)
 本專案的訓練資料集由 **Roboflow** 進行管理與處理：
 * **圖片總數：** 3,761 張 (包含增強後的圖片)。
