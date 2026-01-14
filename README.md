@@ -1,6 +1,6 @@
-# 使用 YOLOv11 進行樹幹分割 (Tree Trunk Segmentation) 🌲
+# 使用 YOLOv11 進行樹幹分割 (Tree Trunk Segmentation) 
 
-## 📋 目錄 (Table of Contents)
+## 目錄 (Table of Contents)
 * [一、專案簡介 (Overview)](#一專案簡介-overview)
 * [二、關鍵功能](#二關鍵功能)
 * [三、所需軟體與環境 (Requirements)](#三所需軟體與環境-requirements)
