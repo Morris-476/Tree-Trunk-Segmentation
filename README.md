@@ -59,6 +59,8 @@
 打開您的終端機 (Terminal) 或 CMD，輸入以下指令：
 ```bash
 git clone [https://github.com/Morris-476/Tree-Trunk-Segmentation.git](https://github.com/Morris-476/Tree-Trunk-Segmentation.git)
+```
+```bash
 cd Tree-Trunk-Segmentation
 ```
 
