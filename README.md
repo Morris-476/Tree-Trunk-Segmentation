@@ -1,16 +1,16 @@
-# 使用 YOLOv11 進行樹幹分割 (Tree Trunk Segmentation) 🌲
+# 使用 YOLOv11 進行樹幹分割 (Tree Trunk Segmentation) 
 
-## 📖 專案簡介 (Overview)
+一. 專案簡介 (Overview)
 本專案旨在使用最先進的 **YOLOv11** 架構進行樹幹的 **實例分割 (Instance Segmentation)**。此模型經過訓練，能夠在複雜的環境背景中準確地識別並描繪出樹幹的輪廓。這項技術可應用於林業管理、生物量估算以及自動化環境監測等領域。
 
-## 🚀 關鍵功能
+二. 關鍵功能
 * **模型架構：** YOLOv11n-seg (Nano 版本，輕量且高效)。
 * **任務類型：** 實例分割 (Instance Segmentation，像素級偵測)。
 * **訓練平台：** Google Colab (使用 T4 GPU 加速)。
 * **資料管理：** Roboflow (負責資料預處理與增強)。
 * **自動測量系統：** 整合視窗介面，自動計算樹徑並繪製結果。
 
-## ⚙️ 所需軟體與環境 (Requirements)
+三. 所需軟體與環境 (Requirements)
 若要在本地端執行此專案，建議安裝以下軟體與工具：
 
 ### 1. 系統環境
@@ -31,7 +31,7 @@
 
 ---
 
-## 📊 資料集細節 (Dataset Details)
+四. 資料集細節 (Dataset Details)
 本專案的訓練資料集由 **Roboflow** 進行管理與處理：
 * **圖片總數：** 3,761 張 (包含增強後的圖片)。
 * **類別 (Classes)：** `trunk` (樹幹)。
@@ -42,7 +42,7 @@
     * 水平翻轉 (Horizontal Flip)。
     * 旋轉 (Rotation)。
 
-## 📈 模型表現 (Model Performance)
+五. 模型表現 (Model Performance)
 模型經過 **100 輪 (epochs)** 的訓練後，取得了優異的成效：
 * **精準度 (Precision, P)：** 95.5%
 * **召回率 (Recall, R)：** 89.6%
@@ -51,7 +51,7 @@
 
 ---
 
-## 💻 如何使用本專案 (Usage)
+六. 如何使用本專案 (Usage)
 
 本專案已封裝為自動化測量程式，請依照以下步驟操作：
 
@@ -89,7 +89,7 @@ python main.py
 
 ---
 
-## 📂 專案結構說明
+七. 專案結構說明
 * `main.py`: **主程式入口**，負責協調各模組運作。
 * `best.pt`: 訓練好的 YOLOv11 模型權重檔。
 * `src/`: 核心功能模組資料夾。
@@ -100,7 +100,7 @@ python main.py
     * `input_handler.py`: 使用者輸入介面。
 * `measured_result/`: **(自動生成)** 存放測量結果圖片的資料夾。
 
-## 👨‍💻 作者 (Author)
+八. 作者 (Author)
 * **Morris-476** ([GitHub Profile](https://github.com/Morris-476))
 * *淡江大學 資訊管理學系*
 * *Tamkang University, Department of Information Management*
