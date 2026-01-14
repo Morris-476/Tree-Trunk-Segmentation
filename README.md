@@ -8,6 +8,7 @@
 * **任務類型：** 實例分割 (Instance Segmentation，像素級偵測)。
 * **訓練平台：** Google Colab (使用 T4 GPU 加速)。
 * **資料管理：** Roboflow (負責資料預處理與增強)。
+* **自動測量系統：** 整合視窗介面，自動計算樹徑並繪製結果。
 
 ## ⚙️ 所需軟體與環境 (Requirements)
 若要在本地端執行此專案，建議安裝以下軟體與工具：
@@ -21,12 +22,12 @@
 * **[Python](https://www.python.org/downloads/)**: 程式執行環境。
 * **[Git](https://git-scm.com/downloads)**: 用於下載 (Clone) 此專案代碼。
 * **[Visual Studio Code (VS Code)](https://code.visualstudio.com/)**: 推薦使用的程式碼編輯器。
-* **[Anaconda](https://www.anaconda.com/) (選用)**: 建議使用 Anaconda 或 Miniconda 來管理虛擬環境，避免套件衝突。
 
 ### 3. 必要 Python 套件 (Libraries)
 * **ultralytics**: YOLO 核心庫。
-* **opencv-python**: 影像處理 (通常隨 ultralytics 自動安裝)。
-* **torch**: 深度學習框架 (通常隨 ultralytics 自動安裝)。
+* **opencv-python**: 影像處理。
+* **numpy**: 數值計算。
+* **tk**: (通常 Python 內建) 用於顯示檔案選擇視窗。
 
 ---
 
@@ -48,13 +49,11 @@
 * **mAP50：** 93.8%
 * **mAP50-95：** 76.2%
 
-*(註：這些數據顯示模型具有極高的強健性，即便在背景雜亂的情況下也能準確抓出樹幹。)*
-
 ---
 
 ## 💻 如何使用本專案 (Usage)
 
-如果您想下載此模型並在自己的電腦上執行預測，請依照以下步驟操作：
+本專案已封裝為自動化測量程式，請依照以下步驟操作：
 
 ### 步驟 1：下載專案 (Clone Repository)
 打開您的終端機 (Terminal) 或 CMD，輸入以下指令：
@@ -64,50 +63,40 @@ cd Tree-Trunk-Segmentation
 ```
 
 ### 步驟 2：安裝環境 (Install Dependencies)
-請確保您的電腦已安裝 Python，並執行以下指令安裝 YOLO 套件：
+請執行以下指令安裝必要的 Python 套件：
 ```bash
-pip install ultralytics
+pip install ultralytics opencv-python numpy
 ```
 
-### 步驟 3：執行預測 (Run Inference)
-您可以建立一個 Python 檔案 (例如 `predict.py`)，貼上以下程式碼來測試模型。
-**注意：請準備一張有樹幹的照片 (例如 `test.jpg`) 放在同一個資料夾中。**
-
-```python
-from ultralytics import YOLO
-
-# 1. 載入模型 (best.pt 已經包含在專案資料夾中)
-model = YOLO("best.pt")
-
-# 2. 進行預測
-# 請將 'test.jpg' 改成您想要測試的圖片檔名
-# source='0' 代表使用視訊鏡頭
-results = model.predict(source="test.jpg", save=True)
-
-# 3. 顯示結果 (包含錯誤檢查)
-for result in results:
-    # 檢查是否有偵測到物件，避免程式報錯
-    if result.masks:
-        print(f"✅ 偵測成功！共發現 {len(result.masks)} 棵樹。")
-        # 印出樹幹的輪廓座標
-        for i, mask in enumerate(result.masks.xy):
-            print(f"  - 第 {i+1} 棵樹的座標點數: {len(mask)}")
-    else:
-        print("⚠️ 這張圖片中沒有偵測到樹幹。")
-```
-
-### 額外選項：使用指令列 (CLI)
-如果您不想寫程式，也可以直接在終端機輸入指令來跑圖：
+### 步驟 3：執行主程式 (Run Main Program)
+直接執行 `main.py` 即可啟動測量系統：
 ```bash
-# source='圖片路徑' 或 source='0' (使用 WebCam)
-yolo segment predict model=best.pt source='test.jpg' show=True
+python main.py
 ```
+
+### 步驟 4：操作流程
+1.  **選擇模式與參數**：
+    * 程式啟動後，請在終端機輸入 **1** (預設) 或 **2** (自訂距離)。
+    * 輸入 **K 值** (cm/pixel 比例常數)。
+2.  **選擇圖片**：
+    * 系統會自動彈出檔案選擇視窗，請點選您要測量的圖片 (支援 `.jpg`, `.png` 等)。
+3.  **查看結果**：
+    * 程式會自動計算樹徑、繪製紅線標記。
+    * **結果視窗**：會自動彈出顯示測量後的圖片。
+    * **存檔位置**：所有結果圖片會自動儲存於專案目錄下的 **`measured_result`** 資料夾中。
 
 ---
 
-## 📂 倉庫檔案說明
-* `best.pt`: 訓練好的 YOLOv11 權重檔 (模型的大腦，最重要的檔案)。
-* `train_yolov8_instance_segmentation.ipynb`: 用於訓練模型的 Google Colab 程式碼筆記本 (若要重新訓練才需開啟)。
+## 📂 專案結構說明
+* `main.py`: **主程式入口**，負責協調各模組運作。
+* `best.pt`: 訓練好的 YOLOv11 模型權重檔。
+* `src/`: 核心功能模組資料夾。
+    * `detector.py`: YOLO 模型偵測與篩選 (含信心度過濾)。
+    * `file_manager.py`: 檔案存取與路徑管理 (支援中文路徑)。
+    * `calculator.py`: 數值換算邏輯。
+    * `visualizer.py`: 影像繪圖處理。
+    * `input_handler.py`: 使用者輸入介面。
+* `measured_result/`: **(自動生成)** 存放測量結果圖片的資料夾。
 
 ## 👨‍💻 作者 (Author)
 * **Morris-476** ([GitHub Profile](https://github.com/Morris-476))
