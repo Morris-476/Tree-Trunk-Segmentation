@@ -6,7 +6,7 @@
 * [三、所需軟體與環境 (Requirements)](#三所需軟體與環境-requirements)
 * [四、資料集細節 (Dataset Details)](#四資料集細節-dataset-details)
 * [五、模型表現 (Model Performance)](#五模型表現-model-performance)
-* [六、如何使用本專案 (Usage)](#六如何使用本專案-usage)
+* [<font color="red">六、如何使用本專案 (Usage)</font>](#六如何使用本專案-usage)
 * [七、專案結構說明](#七專案結構說明)
 * [八、作者 (Author)](#八作者-author)
 
